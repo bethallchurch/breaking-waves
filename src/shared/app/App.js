@@ -1,14 +1,14 @@
-import React from 'react';
-import router from '../router';
-import Layout from './Layout';
+import React from 'react'
+import router from '../router'
+import Layout from './Layout'
 
-export const App = (props) => {
-  const menu = props.PRISMIC_UNIVERSAL_DATA.menu;
+export const App = props => {
+  const { menu, footer } = props.PRISMIC_UNIVERSAL_DATA
   return (
-    <Layout menu={menu}>
+    <Layout menu={menu} footer={footer}>
       {router(props)}
     </Layout>
-  );
-};
+  )
+}
 
-export default App;
+export default App

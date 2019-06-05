@@ -1,81 +1,69 @@
-import React from 'react';
-import NotFoundPage from './NotFoundPage';
-
-import PrismicReact from '../../prismic-react';
-import TextSection from './slices/TextSection';
-import FullWidthImage from './slices/FullWidthImage';
-import Quote from './slices/Quote';
-import ImageGallery from './slices/ImageGallery';
-import ImageHighlight from './slices/ImageHighlight';
-import HomeBanner from './slices/HomeBanner';
+import React from 'react'
+import NotFoundPage from './NotFoundPage'
+import PrismicReact from '../../prismic-react'
+import TextSection from './slices/TextSection'
+import ImageGallery from './slices/ImageGallery'
+import HomeBanner from './slices/HomeBanner'
+import Testimonials from './slices/Testimonials'
 
 class HomePage extends React.Component {
-  
-  constructor(props) {
-    super(props);
-    
+
+  constructor (props) {
+    super(props)
+
     this.state = {
-      notFound: 
+      notFound:
         props.PRISMIC_UNIVERSAL_DATA &&
         !props.PRISMIC_UNIVERSAL_DATA.data ?
         true :
         false,
-      linkResolver : null,
-    };
-  }
-  
-  componentWillReceiveProps(props) {
-    this.setState({ notFound: !props.PRISMIC_UNIVERSAL_DATA })
-  }
-  
-  componentWillMount() {
-    if (typeof document !== 'undefined') document.body.classList.add('homepage');
-  }
-  
-  componentWillUnmount() {
-    if (typeof document !== 'undefined') document.body.classList.remove('homepage');
+      linkResolver: null
+    }
   }
 
-  render() {
-    const document = this.props.PRISMIC_UNIVERSAL_DATA;
+  componentWillReceiveProps (props) {
+    this.setState({ notFound: !props.PRISMIC_UNIVERSAL_DATA })
+  }
+
+  componentWillMount () {
+    if (typeof document !== 'undefined') document.body.classList.add('homepage')
+  }
+
+  componentWillUnmount () {
+    if (typeof document !== 'undefined') document.body.classList.remove('homepage')
+  }
+
+  render () {
+    const document = this.props.PRISMIC_UNIVERSAL_DATA
+
     if (document && document.data) {
-      const document = this.props.PRISMIC_UNIVERSAL_DATA;
-      
-      var pageContent = document.data.page_content.map(function(slice, index){
+      const document = this.props.PRISMIC_UNIVERSAL_DATA
+
+      var pageContent = document.data.body.map(function (slice, index) {
         switch (slice.slice_type) {
-          case "text_section":
-            return <TextSection key={index} slice={slice}/>;
-            break;
-          case "full_width_image":
-            return <FullWidthImage key={index} slice={slice}/>;
-            break;
-          case "quote":
-            return <Quote key={index} slice={slice}/>;
-            break;
-          case "image_gallery":
-            return <ImageGallery key={index} slice={slice}/>;
-            break;
-          case "image_highlight":
-            return <ImageHighlight key={index} slice={slice}/>;
-            break;
+          case 'text_section':
+            return <TextSection key={index} slice={slice} />
+          case 'image_gallery':
+            return <ImageGallery key={index} slice={slice} />
+          case 'testimonials':
+            return <Testimonials key={index} slice={slice} />
           default:
-            return <p>{slice.slice_type}</p>;
-            break;
+            return <p key={index}>{slice.slice_type}</p>
         }
-      });
-      
+      })
+
       return (
         <div data-wio-id={document.id}>
-          <HomeBanner document={document}/>
-          <div className="container">
-            { pageContent }
+          <HomeBanner document={document} />
+          <div>
+            {pageContent}
           </div>
         </div>
-      );
+      )
     } else if (this.state.notFound) {
-      return <NotFoundPage />;
+      return <NotFoundPage />
     } else {
-      return <div className="container">Loading...</div>;
+      return <div>Loading...</div>
     }
   }
 }
@@ -83,4 +71,4 @@ class HomePage extends React.Component {
 export default PrismicReact.UniversalComponent({
   request: (ctx, props) => ctx.api.getSingle('homepage', {}),
   component: HomePage
-});
+})
