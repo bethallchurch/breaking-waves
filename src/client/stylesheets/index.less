@@ -1,0 +1,36 @@
+@import './reset.css';
+@import './typography';
+@import './theming';
+
+body {
+  .sans-serif();
+  .bg-slate();
+  .clouds();
+}
+
+h1, h2, h3, h4, h5, h6 {
+  .lh-title();
+}
+
+h1 { .f1(); }
+h2 { .f2(); }
+h3 { .f3(); }
+h4 { .f4(); }
+h5 { .f5(); }
+h6 { .f6(); }
+
+p {
+  .f5();
+  .lh-copy();
+}
+
+a {
+  .peter-river();
+  .no-underline();
+  &:visited {
+    .amethyst();
+  }
+  &:hover {
+    .underline();
+  }
+}

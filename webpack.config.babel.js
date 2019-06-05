@@ -1,13 +1,13 @@
-import path from 'path';
-import nodeExternals from 'webpack-node-externals';
+import path from 'path'
+import nodeExternals from 'webpack-node-externals'
 
 const client = {
   entry: {
-    js: './src/client/index.js',
+    js: './src/client/index.js'
   },
   output: {
     path: path.join(__dirname, 'public/js/compiled'),
-    filename: 'client.js',
+    filename: 'client.js'
   },
   module: {
     rules: [
@@ -15,29 +15,37 @@ const client = {
         test: path.join(__dirname, 'src'),
         use: {
           loader: 'babel-loader',
-          options: 'cacheDirectory=.babel_cache',
-        },
+          options: 'cacheDirectory=.babel_cache'
+        }
       },
-    ],
-  },
-};
+      {
+        test: /\.less$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'less-loader'
+        ]
+      }
+    ]
+  }
+}
 
 const server = {
   target: 'node',
   devtool: 'inline-source-map',
   node: {
-    __dirname: false,
+    __dirname: false
   },
   externals: [nodeExternals({
-    modulesFromFile: true,
+    modulesFromFile: true
   })],
   entry: {
-    js: './src/server/index.js',
+    js: './src/server/index.js'
   },
   output: {
     path: path.join(__dirname, 'public/js/compiled'),
     filename: 'server.js',
-    libraryTarget: 'commonjs2',
+    libraryTarget: 'commonjs2'
   },
   module: {
     rules: [
@@ -45,11 +53,11 @@ const server = {
         test: path.join(__dirname, 'src'),
         use: {
           loader: 'babel-loader',
-          options: 'cacheDirectory=.babel_cache',
-        },
-      },
-    ],
-  },
-};
+          options: 'cacheDirectory=.babel_cache'
+        }
+      }
+    ]
+  }
+}
 
-export default [client, server];
+export default [client, server]

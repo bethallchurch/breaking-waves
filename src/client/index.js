@@ -26,6 +26,8 @@ import Prismic from 'prismic-javascript'
 import App from '../shared/app/App'
 import PrismicConfig from '../prismic-configuration'
 
+import './stylesheets/index.less'
+
 const AppClient = props => (
   <Router>
     <App {...props} />

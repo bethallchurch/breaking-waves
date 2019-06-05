@@ -19,7 +19,7 @@ export const Layout = props => {
   return (
     <div>
       <header>
-        <Link to='/'>{RichText.asText(props.menu.data.title)}</Link>
+        <Link className='cursive' to='/'>{RichText.asText(props.menu.data.title)}</Link>
         <nav>
           <ul>{menu}</ul>
         </nav>
